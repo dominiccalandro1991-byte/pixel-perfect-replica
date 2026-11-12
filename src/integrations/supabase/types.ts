@@ -14,16 +14,351 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          address: string
+          client_id: string
+          complexity_tier: number
+          created_at: string
+          deposit: number
+          estimated_cost: number
+          extras: Json
+          geo_location: unknown
+          id: string
+          installer_id: string | null
+          roof_linear_feet: number
+          scheduled_date: string
+          status: string
+        }
+        Insert: {
+          address: string
+          client_id: string
+          complexity_tier: number
+          created_at?: string
+          deposit: number
+          estimated_cost: number
+          extras?: Json
+          geo_location?: unknown
+          id?: string
+          installer_id?: string | null
+          roof_linear_feet: number
+          scheduled_date: string
+          status?: string
+        }
+        Update: {
+          address?: string
+          client_id?: string
+          complexity_tier?: number
+          created_at?: string
+          deposit?: number
+          estimated_cost?: number
+          extras?: Json
+          geo_location?: unknown
+          id?: string
+          installer_id?: string | null
+          roof_linear_feet?: number
+          scheduled_date?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_installer_id_fkey"
+            columns: ["installer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      map_pins: {
+        Row: {
+          address: string
+          award_winner: boolean
+          created_at: string
+          description: string
+          display_schedule: string
+          geo_location: unknown
+          id: string
+          image_path: string | null
+          is_verified_commercial: boolean
+          latitude: number
+          longitude: number
+          title: string
+          user_id: string
+        }
+        Insert: {
+          address: string
+          award_winner?: boolean
+          created_at?: string
+          description?: string
+          display_schedule?: string
+          geo_location?: unknown
+          id?: string
+          image_path?: string | null
+          is_verified_commercial?: boolean
+          latitude: number
+          longitude: number
+          title: string
+          user_id: string
+        }
+        Update: {
+          address?: string
+          award_winner?: boolean
+          created_at?: string
+          description?: string
+          display_schedule?: string
+          geo_location?: unknown
+          id?: string
+          image_path?: string | null
+          is_verified_commercial?: boolean
+          latitude?: number
+          longitude?: number
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "map_pins_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pin_votes: {
+        Row: {
+          pin_id: string
+          user_id: string
+        }
+        Insert: {
+          pin_id: string
+          user_id: string
+        }
+        Update: {
+          pin_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pin_votes_pin_id_fkey"
+            columns: ["pin_id"]
+            isOneToOne: false
+            referencedRelation: "map_pins"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pin_votes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_comments: {
+        Row: {
+          author_name: string
+          content: string
+          created_at: string
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          author_name: string
+          content: string
+          created_at?: string
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          author_name?: string
+          content?: string
+          created_at?: string
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "post_comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_likes: {
+        Row: {
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "post_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      posts: {
+        Row: {
+          author_name: string
+          caption: string
+          created_at: string
+          id: string
+          image_path: string
+          map_pin_id: string | null
+          user_id: string
+        }
+        Insert: {
+          author_name: string
+          caption?: string
+          created_at?: string
+          id?: string
+          image_path: string
+          map_pin_id?: string | null
+          user_id: string
+        }
+        Update: {
+          author_name?: string
+          caption?: string
+          created_at?: string
+          id?: string
+          image_path?: string
+          map_pin_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "posts_map_pin_id_fkey"
+            columns: ["map_pin_id"]
+            isOneToOne: false
+            referencedRelation: "map_pins"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          allow_messages: boolean
+          avatar_path: string | null
+          created_at: string
+          full_name: string
+          id: string
+          notifications: boolean
+          phone: string
+          service_radius: number
+          show_exact_address: boolean
+        }
+        Insert: {
+          allow_messages?: boolean
+          avatar_path?: string | null
+          created_at?: string
+          full_name?: string
+          id: string
+          notifications?: boolean
+          phone?: string
+          service_radius?: number
+          show_exact_address?: boolean
+        }
+        Update: {
+          allow_messages?: boolean
+          avatar_path?: string | null
+          created_at?: string
+          full_name?: string
+          id?: string
+          notifications?: boolean
+          phone?: string
+          service_radius?: number
+          show_exact_address?: boolean
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      request_booking: {
+        Args: {
+          p_address: string
+          p_date: string
+          p_feet: number
+          p_pathway: number
+          p_storage: boolean
+          p_tier: number
+          p_timer: boolean
+          p_wreaths: number
+        }
+        Returns: string
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "client" | "installer" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +485,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["client", "installer", "admin"],
+    },
   },
 } as const

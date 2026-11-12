@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application rules
+- Use TanStack file routes and a shared root shell; this preserves the supported framework and consistent navigation.
+- Keep quote calculation in a shared client-safe module and revalidate prices in a database booking function; customers must not forge prices or confirmation status.
+- Store roles separately from editable profiles; only trusted assignment may grant installer or admin privileges.
+- Load Mapbox dynamically in a client-only view; its browser APIs must not execute during SSR.
+- Re-encode uploads as WebP and store them in private Cloud storage with signed read URLs; this strips EXIF and respects the workspace public-bucket restriction.
